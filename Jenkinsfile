@@ -3,7 +3,7 @@
 library identifier: 'jenkins-shared-library@master', retriever: modernSCM(
     [$class: 'GitSCMSource',
     remote: 'https://github.com/Rinebode/jenkins-sl.git',
-    credentialsID: 'gitlab-credentials'
+    credentialsID: 'github-credentials'
     ]
 )
 
@@ -65,7 +65,7 @@ pipeline {
         stage('commit version update'){
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'gitlab-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
+                    withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                         sh 'git remote set-url origin https://$USER:$PASSgit@github.com:Rinebode/09-aws-Project2.git'
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
